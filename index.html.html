@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arjun Vaidun</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #f7f5f0; --surface: #ffffff; --ink: #1a1814; --ink2: #5a5650;
+    --ink3: #9a9590; --accent: #2d6a4f; --accent-light: #e8f5ee;
+    --accent2: #c5623a; --accent2-light: #fdf0ea; --border: rgba(0,0,0,0.08);
+    --tag-bg: #f0ede6; --tag-ink: #5a5650;
+    --serif: 'DM Serif Display', Georgia, serif;
+    --sans: 'Outfit', system-ui, sans-serif;
+    --mono: 'DM Mono', monospace;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--sans); background: var(--bg); color: var(--ink); line-height: 1.6; min-height: 100vh; }
+  nav { position: sticky; top: 0; z-index: 100; background: rgba(247,245,240,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 56px; }
+  .nav-name { font-family: var(--serif); font-size: 1.1rem; color: var(--ink); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { font-size: 0.82rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink2); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--accent); }
+  .hero { max-width: 820px; margin: 0 auto; padding: 7rem 2rem 5rem; }
+  .hero-eyebrow { font-family: var(--mono); font-size: 0.78rem; color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 1.2rem; display: flex; align-items: center; gap: 0.6rem; }
+  .hero-eyebrow::before { content: ''; display: inline-block; width: 24px; height: 1.5px; background: var(--accent); }
+  h1 { font-family: var(--serif); font-size: clamp(3rem, 7vw, 5.2rem); line-height: 1.05; color: var(--ink); margin-bottom: 1.5rem; }
+  h1 em { font-style: italic; color: var(--accent2); }
+  .hero-sub { font-size: 1.05rem; color: var(--ink2); max-width: 580px; line-height: 1.8; margin-bottom: 1.5rem; }
+  .hero-motivation { font-size: 0.92rem; color: var(--ink2); max-width: 580px; line-height: 1.8; margin-bottom: 2.5rem; padding: 1rem 1.25rem; border-left: 2.5px solid var(--accent2); background: var(--accent2-light); border-radius: 0 8px 8px 0; }
+  .hero-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2.5rem; }
+  .chip { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.04em; padding: 0.3rem 0.85rem; border-radius: 100px; background: var(--tag-bg); color: var(--tag-ink); border: 1px solid var(--border); }
+  .chip.green { background: var(--accent-light); color: var(--accent); border-color: rgba(45,106,79,0.15); }
+  .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn { font-family: var(--sans); font-size: 0.85rem; font-weight: 500; letter-spacing: 0.04em; padding: 0.65rem 1.4rem; border-radius: 6px; text-decoration: none; transition: all 0.2s; display: inline-flex; align-items: center; gap: 0.4rem; }
+  .btn-primary { background: var(--ink); color: #fff; border: 1.5px solid var(--ink); }
+  .btn-primary:hover { background: var(--accent); border-color: var(--accent); }
+  .btn-outline { background: transparent; color: var(--ink); border: 1.5px solid rgba(0,0,0,0.18); }
+  .btn-outline:hover { border-color: var(--ink); background: rgba(0,0,0,0.03); }
+  section { max-width: 820px; margin: 0 auto; padding: 5rem 2rem; border-top: 1px solid var(--border); }
+  .section-label { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink3); margin-bottom: 0.6rem; }
+  .section-title { font-family: var(--serif); font-size: clamp(1.8rem, 4vw, 2.6rem); line-height: 1.15; color: var(--ink); margin-bottom: 3rem; }
+  .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 1.5rem; }
+  .project-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.75rem; transition: transform 0.2s; position: relative; overflow: hidden; }
+  .project-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--accent); opacity: 0; transition: opacity 0.2s; }
+  .project-card:hover { transform: translateY(-3px); }
+  .project-card:hover::before { opacity: 1; }
+  .project-card.featured::before { opacity: 1; background: var(--accent2); }
+  .project-status { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.2rem 0.6rem; border-radius: 4px; display: inline-block; margin-bottom: 1rem; }
+  .status-live { background: var(--accent-light); color: var(--accent); }
+  .status-research { background: #eef2fb; color: #3a5bbf; }
+  .status-wip { background: var(--tag-bg); color: var(--ink3); }
+  .project-title { font-family: var(--serif); font-size: 1.35rem; color: var(--ink); margin-bottom: 0.6rem; line-height: 1.2; }
+  .project-desc { font-size: 0.88rem; color: var(--ink2); line-height: 1.7; margin-bottom: 1rem; }
+  .project-features { list-style: none; margin-bottom: 1.2rem; display: flex; flex-direction: column; gap: 0.3rem; }
+  .project-features li { font-size: 0.8rem; color: var(--ink3); padding-left: 0.9rem; position: relative; line-height: 1.5; }
+  .project-features li::before { content: '→'; position: absolute; left: 0; color: var(--accent); font-size: 0.7rem; top: 0.05rem; }
+  .project-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.2rem; }
+  .tag { font-size: 0.7rem; font-weight: 500; padding: 0.2rem 0.55rem; border-radius: 4px; background: var(--tag-bg); color: var(--tag-ink); }
+  .project-links { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .project-link { font-size: 0.8rem; font-weight: 500; color: var(--accent); text-decoration: none; display: inline-flex; align-items: center; gap: 0.3rem; transition: gap 0.2s; }
+  .project-link:hover { gap: 0.5rem; }
+  .project-link.secondary { color: var(--ink3); }
+  .experience-list { display: flex; flex-direction: column; gap: 2rem; }
+  .exp-item { display: grid; grid-template-columns: 140px 1fr; gap: 2rem; align-items: start; }
+  .exp-date { font-family: var(--mono); font-size: 0.72rem; color: var(--ink3); letter-spacing: 0.06em; padding-top: 0.15rem; line-height: 1.5; }
+  .exp-role { font-size: 1rem; font-weight: 600; color: var(--ink); margin-bottom: 0.15rem; }
+  .exp-org { font-size: 0.82rem; color: var(--accent); font-weight: 500; margin-bottom: 0.6rem; }
+  .exp-bullets { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.35rem; }
+  .exp-bullets li { font-size: 0.85rem; color: var(--ink2); line-height: 1.65; padding-left: 1rem; position: relative; }
+  .exp-bullets li::before { content: '—'; position: absolute; left: 0; color: var(--ink3); font-size: 0.75rem; }
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; }
+  .skill-group { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.25rem 1.5rem; }
+  .skill-group-title { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink3); margin-bottom: 0.85rem; }
+  .skill-list { display: flex; flex-direction: column; gap: 0.4rem; }
+  .skill-item { font-size: 0.85rem; color: var(--ink2); display: flex; align-items: center; gap: 0.5rem; }
+  .skill-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+  .contact-block { background: var(--ink); border-radius: 16px; padding: 3.5rem; color: #fff; display: grid; grid-template-columns: 1fr auto; gap: 2rem; align-items: center; }
+  .contact-title { font-family: var(--serif); font-size: 2rem; color: #fff; margin-bottom: 0.6rem; line-height: 1.2; }
+  .contact-sub { font-size: 0.9rem; color: rgba(255,255,255,0.55); max-width: 380px; line-height: 1.7; }
+  .contact-links { display: flex; flex-direction: column; gap: 0.75rem; flex-shrink: 0; }
+  .contact-link { font-size: 0.82rem; font-weight: 500; color: rgba(255,255,255,0.7); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; transition: color 0.2s; }
+  .contact-link:hover { color: #fff; }
+  .contact-link-icon { width: 32px; height: 32px; border-radius: 6px; background: rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: center; font-size: 0.8rem; flex-shrink: 0; }
+  footer { text-align: center; padding: 2rem; font-family: var(--mono); font-size: 0.7rem; color: var(--ink3); letter-spacing: 0.08em; }
+  @media (max-width: 600px) {
+    .exp-item { grid-template-columns: 1fr; gap: 0.5rem; }
+    .contact-block { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-name">Arjun Vaidun</span>
+  <ul class="nav-links">
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="hero">
+  <p class="hero-eyebrow">UC Riverside · Psychology · Class of 2028</p>
+  <h1>Building at the edge of<br><em>mind, health & AI.</em></h1>
+  <p class="hero-sub">Sophomore psychology student with hands-on clinical experience and shipped AI products — focused on applying intelligent systems to neurological health, behavioral science, and healthcare equity.</p>
+  <div class="hero-motivation">
+    Two family members living with Parkinson's disease and a sibling who sustained multiple concussions shaped how I think about neurology, diagnosis, and the gaps in how healthcare systems respond to the people inside them. That's what pulls me toward this work.
+  </div>
+  <div class="hero-chips">
+    <span class="chip green">COPE Health Scholar</span>
+    <span class="chip green">Althea Labs AI</span>
+    <span class="chip green">NASM CPT (In Progress)</span>
+    <span class="chip">AMSA Member</span>
+    <span class="chip">Inspirit AI Alumni</span>
+    <span class="chip">Stanford CASP Alumni</span>
+  </div>
+  <div class="hero-cta">
+    <a href="mailto:a.vaidun@gmail.com" class="btn btn-primary">Get in Touch ↗</a>
+    <a href="https://github.com/avaidun-account" class="btn btn-outline">GitHub →</a>
+  </div>
+</div>
+
+<section id="projects">
+  <p class="section-label">Work</p>
+  <h2 class="section-title">Projects & Builds</h2>
+  <div class="projects-grid">
+
+    <div class="project-card featured">
+      <span class="project-status status-live">Live · iOS Ready</span>
+      <h3 class="project-title">PlateSwap</h3>
+      <p class="project-desc">Mobile app (iOS/Android) that helps users make smarter food choices based on their personal goal — Cut, Maintain, or Bulk. Scan a meal photo, search by name, or scan a barcode; GPT-4o Vision analyzes the food and either suggests a goal-aligned swap or confirms a great choice with positive reinforcement.</p>
+      <ul class="project-features">
+        <li>Food Scanner — photo analysis with macro estimation and goal-aligned swap suggestions</li>
+        <li>Restaurant Mode — photograph a menu; every item categorized Green or Red with alternatives</li>
+        <li>Barcode Scanner — instant health assessment with brand-specific alternatives</li>
+        <li>Meal Search — full nutrition data, recipe, and curated grocery alternatives</li>
+        <li>Premium Tier — unlimited restaurant scans, full recipe access, grocery alternatives</li>
+      </ul>
+      <div class="project-tags">
+        <span class="tag">React Native (Expo)</span>
+        <span class="tag">TypeScript</span>
+        <span class="tag">GPT-4o Vision</span>
+        <span class="tag">PostgreSQL</span>
+        <span class="tag">Drizzle ORM</span>
+        <span class="tag">Express</span>
+      </div>
+      <div class="project-links">
+        <a href="https://plateswap.replit.app" class="project-link">View Live App →</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <span class="project-status status-research">Active Research</span>
+      <h3 class="project-title">Gender Bias in Healthcare AI</h3>
+      <p class="project-desc">Research contribution at Althea Labs AI examining how algorithmic systems perpetuate diagnostic and treatment disparities across gender lines — with a focus on the data and design decisions that produce biased clinical AI outputs.</p>
+      <ul class="project-features">
+        <li>Reviewing literature on gender gaps in clinical datasets and model training</li>
+        <li>Applying psychology and behavioral science lens to AI fairness research</li>
+        <li>Motivated by personal family experience with neurological misdiagnosis patterns</li>
+      </ul>
+      <div class="project-tags">
+        <span class="tag">AI Fairness</span>
+        <span class="tag">Healthcare AI</span>
+        <span class="tag">Research</span>
+        <span class="tag">Althea Labs</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <span class="project-status status-live">Live</span>
+      <h3 class="project-title">MedSpa Outreach Agent</h3>
+      <p class="project-desc">End-to-end AI sales automation pipeline that autonomously discovers MedSpa businesses via Google Maps, enriches leads with owner contact data, generates personalized cold emails via Claude, and delivers them through SendGrid — with a live Flask dashboard and SQLite deduplication.</p>
+      <ul class="project-features">
+        <li>SerpAPI discovery → Hunter.io enrichment → Claude copywriting → SendGrid delivery</li>
+        <li>Dry-run mode, priority-based contact selection, daily rate limiting</li>
+        <li>SQLite lead tracking with status progression and deduplication on re-runs</li>
+      </ul>
+      <div class="project-tags">
+        <span class="tag">Python</span>
+        <span class="tag">Anthropic API</span>
+        <span class="tag">SerpAPI</span>
+        <span class="tag">Hunter.io</span>
+        <span class="tag">SendGrid</span>
+        <span class="tag">Flask</span>
+        <span class="tag">SQLite</span>
+      </div>
+      <div class="project-links">
+        <a href="https://github.com/avaidun-account/medspa-outreach-agent" class="project-link">View on GitHub →</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <span class="project-status status-live">Live</span>
+      <h3 class="project-title">Morning Brief Agent</h3>
+      <p class="project-desc">Personal AI agent that delivers a daily briefing every morning — covering the latest in AI, tech, and health & fitness research. Claude synthesizes content from multiple sources and delivers a clean, curated digest via email or SMS.</p>
+      <ul class="project-features">
+        <li>Automated via GitHub Actions on a daily cron schedule</li>
+        <li>Claude agent with web search synthesizes and formats the brief</li>
+        <li>Delivers via Gmail SMTP; SMS-capable via email-to-SMS gateway</li>
+      </ul>
+      <div class="project-tags">
+        <span class="tag">Python</span>
+        <span class="tag">Anthropic API</span>
+        <span class="tag">GitHub Actions</span>
+        <span class="tag">Gmail SMTP</span>
+      </div>
+      <div class="project-links">
+        <a href="https://github.com/avaidun-account/morning-brief-agent" class="project-link">View on GitHub →</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <span class="project-status" style="background:var(--tag-bg);color:var(--ink3);">Research · 2022</span>
+      <h3 class="project-title">Exoplanet Detection — Inspirit AI</h3>
+      <p class="project-desc">Built and benchmarked CNN, MLP, and SVM classifiers on Kepler Space Telescope light curve data (~3,000 features). CNN achieved 99.69% test accuracy using Fourier transforms, Savitzky-Golay filtering, and normalization in preprocessing.</p>
+      <div class="project-tags">
+        <span class="tag">Python</span>
+        <span class="tag">CNN / MLP / SVM</span>
+        <span class="tag">Data Preprocessing</span>
+        <span class="tag">Inspirit AI</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="experience">
+  <p class="section-label">Background</p>
+  <h2 class="section-title">Experience & Education</h2>
+  <div class="experience-list">
+
+    <div class="exp-item">
+      <div class="exp-date">2025 – Present</div>
+      <div>
+        <div class="exp-role">Research Team Member</div>
+        <div class="exp-org">Althea Labs AI</div>
+        <ul class="exp-bullets">
+          <li>Contributing to research on gender bias in healthcare AI — examining how algorithmic systems perpetuate diagnostic and treatment disparities</li>
+          <li>Applying psychology and health science background to inform research design and literature review on bias in clinical AI models</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-date">2025 – Present</div>
+      <div>
+        <div class="exp-role">COPE Health Scholar</div>
+        <div class="exp-org">Hospital Clinical Placement — California</div>
+        <ul class="exp-bullets">
+          <li>Observe and assist in clinical care settings alongside physicians and care teams</li>
+          <li>Apply behavioral and health science knowledge to real-world patient contexts</li>
+          <li>Demonstrate reliability and professionalism following structured protocols in high-stakes medical environments</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-date">2024 – 2028</div>
+      <div>
+        <div class="exp-role">B.A. Psychology</div>
+        <div class="exp-org">University of California, Riverside</div>
+        <ul class="exp-bullets">
+          <li>Strong focus in psychology and neuroscience coursework; Statistics and Research Methods</li>
+          <li>Member: American Psychological Association (APA) · AMSA · Neuroscience Club</li>
+          <li>Research interests shaped by personal family experience with Parkinson's disease and traumatic brain injury</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-date">2023 – Present</div>
+      <div>
+        <div class="exp-role">Tennis Coach — Neurodivergent Youth</div>
+        <div class="exp-org">Friends of Children with Special Needs (FCSN)</div>
+        <ul class="exp-bullets">
+          <li>Coached children aged 8–12 with autism; designed individualized strategies using visual modeling, physical prompting, and repetition</li>
+          <li>Collaborated with parents to track progress and adjust developmental approaches</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-date">Summer 2022</div>
+      <div>
+        <div class="exp-role">Clinical Anatomy Program — Stanford CASP</div>
+        <div class="exp-org">Stanford Medicine, Stanford, CA</div>
+        <ul class="exp-bullets">
+          <li>Completed hands-on training: dissection, suturing, vital signs assessment, and physical examination</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-date">2021 – Present</div>
+      <div>
+        <div class="exp-role">Relay for Life — Coordinator & Top Fundraiser</div>
+        <div class="exp-org">American Cancer Society</div>
+        <ul class="exp-bullets">
+          <li>Ranked top fundraiser in 2023; featured in school social media coverage</li>
+          <li>Coordinated logistics and outreach for annual 24-hour cancer walk</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="skills">
+  <p class="section-label">Capabilities</p>
+  <h2 class="section-title">Skills & Tools</h2>
+  <div class="skills-grid">
+    <div class="skill-group">
+      <div class="skill-group-title">AI & Development</div>
+      <div class="skill-list">
+        <div class="skill-item"><span class="skill-dot"></span>Python</div>
+        <div class="skill-item"><span class="skill-dot"></span>React Native (Expo)</div>
+        <div class="skill-item"><span class="skill-dot"></span>TypeScript / Express</div>
+        <div class="skill-item"><span class="skill-dot"></span>OpenAI API / GPT-4o Vision</div>
+        <div class="skill-item"><span class="skill-dot"></span>Anthropic Claude API</div>
+        <div class="skill-item"><span class="skill-dot"></span>CNN, MLP, SVM</div>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">Data & Backend</div>
+      <div class="skill-list">
+        <div class="skill-item"><span class="skill-dot"></span>PostgreSQL / Drizzle ORM</div>
+        <div class="skill-item"><span class="skill-dot"></span>SQLite</div>
+        <div class="skill-item"><span class="skill-dot"></span>Flask</div>
+        <div class="skill-item"><span class="skill-dot"></span>GitHub Actions</div>
+        <div class="skill-item"><span class="skill-dot"></span>Data preprocessing</div>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">Clinical & Health</div>
+      <div class="skill-list">
+        <div class="skill-item"><span class="skill-dot"></span>Hospital clinical exposure</div>
+        <div class="skill-item"><span class="skill-dot"></span>Behavioral intervention</div>
+        <div class="skill-item"><span class="skill-dot"></span>NASM CPT (in progress)</div>
+        <div class="skill-item"><span class="skill-dot"></span>Stanford CASP — anatomy & vitals</div>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">Languages</div>
+      <div class="skill-list">
+        <div class="skill-item"><span class="skill-dot"></span>English (native)</div>
+        <div class="skill-item"><span class="skill-dot"></span>Spanish (intermediate)</div>
+        <div class="skill-item"><span class="skill-dot"></span>Patient communication</div>
+        <div class="skill-item"><span class="skill-dot"></span>Adaptive instruction</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" style="border-bottom: none;">
+  <div class="contact-block">
+    <div>
+      <h2 class="contact-title">Open to research &<br>internship opportunities.</h2>
+      <p class="contact-sub">Particularly interested in neurological health, AI fairness in healthcare, and cognitive/behavioral research. Based in Riverside / Anaheim — open to all of SoCal.</p>
+    </div>
+    <div class="contact-links">
+      <a href="mailto:a.vaidun@gmail.com" class="contact-link">
+        <span class="contact-link-icon">✉</span>a.vaidun@gmail.com
+      </a>
+      <a href="tel:5105147040" class="contact-link">
+        <span class="contact-link-icon">☎</span>510-514-7040
+      </a>
+      <a href="https://github.com/avaidun-account" class="contact-link">
+        <span class="contact-link-icon">gh</span>github.com/avaidun-account
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>© 2025 Arjun Vaidun · Built with intention</footer>
+</body>
+</html>
