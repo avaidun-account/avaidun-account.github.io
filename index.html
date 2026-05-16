@@ -50,8 +50,7 @@
   .project-card.featured::before { opacity: 1; background: var(--accent2); }
   .project-status { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.2rem 0.6rem; border-radius: 4px; display: inline-block; margin-bottom: 1rem; }
   .status-live { background: var(--accent-light); color: var(--accent); }
-  .status-research { background: #eef2fb; color: #3a5bbf; }
-  .status-wip { background: var(--tag-bg); color: var(--ink3); }
+  .status-wip { background: #fef3e2; color: #b45309; }
   .project-title { font-family: var(--serif); font-size: 1.35rem; color: var(--ink); margin-bottom: 0.6rem; line-height: 1.2; }
   .project-desc { font-size: 0.88rem; color: var(--ink2); line-height: 1.7; margin-bottom: 1rem; }
   .project-features { list-style: none; margin-bottom: 1.2rem; display: flex; flex-direction: column; gap: 0.3rem; }
@@ -112,7 +111,6 @@
   </div>
   <div class="hero-chips">
     <span class="chip green">COPE Health Scholar</span>
-    <span class="chip green">Althea Labs AI</span>
     <span class="chip green">NASM CPT (In Progress)</span>
     <span class="chip">AMSA Member</span>
     <span class="chip">Inspirit AI Alumni</span>
@@ -130,9 +128,29 @@
   <div class="projects-grid">
 
     <div class="project-card featured">
+      <span class="project-status status-wip">In Development</span>
+      <h3 class="project-title">Caire AI</h3>
+      <p class="project-desc">A home health triage reference tool. Describe a symptom in plain text and optionally attach photos or lab result PDFs — the app simultaneously queries Claude, GPT-4o, and Gemini in parallel, then compares their responses to produce a structured urgency assessment, consensus summary, and a printable report to bring to a doctor. Privacy by design: no database, nothing stored, every request discarded after processing.</p>
+      <ul class="project-features">
+        <li>Gate screen with plain-language disclaimer — clear that this is a reference tool, not a diagnosis</li>
+        <li>Accepts up to 4 files — images base64-encoded, PDFs text-extracted server-side</li>
+        <li>Parallel API calls to Claude, GPT-4o, and Gemini — returns urgency level (1–4), plain-language summary, and doctor talking points per model</li>
+        <li>Consensus view — where models agree, where they differ, and what to watch for</li>
+        <li>Printable report for doctor appointments</li>
+      </ul>
+      <div class="project-tags">
+        <span class="tag">Python</span>
+        <span class="tag">Anthropic Claude API</span>
+        <span class="tag">OpenAI API</span>
+        <span class="tag">Gemini API</span>
+        <span class="tag">Replit</span>
+      </div>
+    </div>
+
+    <div class="project-card">
       <span class="project-status status-live">Live · iOS Ready</span>
       <h3 class="project-title">PlateSwap</h3>
-      <p class="project-desc">Mobile app (iOS/Android) that helps users make smarter food choices based on their personal goal — Cut, Maintain, or Bulk. Scan a meal photo, search by name, or scan a barcode; GPT-4o Vision analyzes the food and either suggests a goal-aligned swap or confirms a great choice with positive reinforcement.</p>
+      <p class="project-desc">Mobile app (iOS/Android) that helps users make smarter food choices based on their personal goal — Lose weight, Maintain weight, or Gain weight. Scan a meal photo, search by name, or scan a barcode; GPT-4o Vision analyzes the food and either suggests a goal-aligned swap or confirms a great choice with positive reinforcement.</p>
       <ul class="project-features">
         <li>Food Scanner — photo analysis with macro estimation and goal-aligned swap suggestions</li>
         <li>Restaurant Mode — photograph a menu; every item categorized Green or Red with alternatives</li>
@@ -150,23 +168,6 @@
       </div>
       <div class="project-links">
         <a href="https://plateswap.replit.app" class="project-link">View Live App →</a>
-      </div>
-    </div>
-
-    <div class="project-card">
-      <span class="project-status status-research">Active Research</span>
-      <h3 class="project-title">Gender Bias in Healthcare AI</h3>
-      <p class="project-desc">Research contribution at Althea Labs AI examining how algorithmic systems perpetuate diagnostic and treatment disparities across gender lines — with a focus on the data and design decisions that produce biased clinical AI outputs.</p>
-      <ul class="project-features">
-        <li>Reviewing literature on gender gaps in clinical datasets and model training</li>
-        <li>Applying psychology and behavioral science lens to AI fairness research</li>
-        <li>Motivated by personal family experience with neurological misdiagnosis patterns</li>
-      </ul>
-      <div class="project-tags">
-        <span class="tag">AI Fairness</span>
-        <span class="tag">Healthcare AI</span>
-        <span class="tag">Research</span>
-        <span class="tag">Althea Labs</span>
       </div>
     </div>
 
@@ -232,18 +233,6 @@
   <p class="section-label">Background</p>
   <h2 class="section-title">Experience & Education</h2>
   <div class="experience-list">
-
-    <div class="exp-item">
-      <div class="exp-date">2025 – Present</div>
-      <div>
-        <div class="exp-role">Research Team Member</div>
-        <div class="exp-org">Althea Labs AI</div>
-        <ul class="exp-bullets">
-          <li>Contributing to research on gender bias in healthcare AI — examining how algorithmic systems perpetuate diagnostic and treatment disparities</li>
-          <li>Applying psychology and health science background to inform research design and literature review on bias in clinical AI models</li>
-        </ul>
-      </div>
-    </div>
 
     <div class="exp-item">
       <div class="exp-date">2025 – Present</div>
@@ -321,6 +310,7 @@
         <div class="skill-item"><span class="skill-dot"></span>TypeScript / Express</div>
         <div class="skill-item"><span class="skill-dot"></span>OpenAI API / GPT-4o Vision</div>
         <div class="skill-item"><span class="skill-dot"></span>Anthropic Claude API</div>
+        <div class="skill-item"><span class="skill-dot"></span>Gemini API</div>
         <div class="skill-item"><span class="skill-dot"></span>CNN, MLP, SVM</div>
       </div>
     </div>
@@ -359,7 +349,7 @@
   <div class="contact-block">
     <div>
       <h2 class="contact-title">Open to research &<br>internship opportunities.</h2>
-      <p class="contact-sub">Particularly interested in neurological health, AI fairness in healthcare, and cognitive/behavioral research. Based in Riverside / Anaheim — open to all of SoCal.</p>
+      <p class="contact-sub">Particularly interested in neurological health, AI in healthcare, and cognitive/behavioral research. Based in Riverside — open to remote and all of SoCal.</p>
     </div>
     <div class="contact-links">
       <a href="mailto:a.vaidun@gmail.com" class="contact-link">
